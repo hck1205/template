@@ -27,6 +27,7 @@ module.exports = () => {
           const result = await bcrypt.compare(password, user.password);
 
           if (result) {
+            console.log('LocalStrategy');
             return done(null, user);
           }
 

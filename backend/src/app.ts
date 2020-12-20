@@ -30,7 +30,6 @@ export class App {
   }
 
   middlewares() {
-    console.log('process.env.COOKIE_SECRET', process.env.COOKIE_SECRET);
     this.app.use(express.json()); // json 형식의 본문을 처리
     this.app.use(
       // form으로 들어오는 데이터를 처리

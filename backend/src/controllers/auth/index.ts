@@ -35,33 +35,38 @@ export const signin = async (
   res: Response,
   next: NextFunction
 ) => {
-  passport.authenticate('local', (err: Error, user: any, info: any) => {
-    if (err) {
-      console.error(err);
-      return next(err);
-    }
-
-    if (info) {
-      return res.status(401).send(info.reason);
-    }
-
-    return req.login(user, async (loginErr) => {
-      try {
-        if (loginErr) return next(loginErr);
-
-        const [
-          fullUser,
-        ] = (await excuteQuery(
-          'SELECT userId, nickname, email as cnt FROM user WHERE id = ?',
-          [user.id]
-        )) as RowDataPacket[];
-
-        return res.json(fullUser);
-      } catch (e) {
-        next(e);
+  passport.authenticate(
+    'local',
+    (err: Error, user: User, info: { reason: string }) => {
+      if (err) {
+        console.error(err);
+        return next(err);
       }
-    });
-  })(req, res, next);
+
+      console.log('signin');
+
+      if (info) {
+        return res.status(401).send(info.reason);
+      }
+
+      return req.login(user, async (loginErr) => {
+        try {
+          if (loginErr) return next(loginErr);
+
+          const [
+            fullUser,
+          ] = (await excuteQuery(
+            'SELECT userId, nickname, email FROM user WHERE id = ?',
+            [user.id]
+          )) as RowDataPacket[];
+
+          return res.json(fullUser);
+        } catch (e) {
+          next(e);
+        }
+      });
+    }
+  )(req, res, next);
 };
 
 export const profile = async (req: Request, res: Response) => {
