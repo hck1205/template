@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon src/index.ts --exec ts-node",
     "start": "node dist/index.js",
-    "dev": "nodemon src/index.ts --exec ts-node",
     "build": "tsc -p ."
   },
   "keywords": [],
@@ -33,6 +33,7 @@
     "@types/node": "^14.14.14",
     "@types/passport": "^1.0.4",
     "@types/passport-local": "^1.0.33",
+    "cross-env": "^7.0.3",
     "express-session": "^1.17.1",
     "nodemon": "^2.0.6",
     "ts-node": "^9.1.1",
