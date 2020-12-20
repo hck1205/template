@@ -19,8 +19,8 @@ export const excuteQuery = async <T>(query: string, params?: Array<T>) => {
   try {
     const [rows, fields] = await conn.query(query, params);
     return rows;
-  } catch (e) {
-    return console.error(`Error occurred on Query: ${query}, Due to ${e}`);
+  } catch (error) {
+    throw `Error occurred on Query: ${query}, Due to ${error}`;
   } finally {
     conn.end();
   }

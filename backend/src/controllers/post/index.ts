@@ -1,7 +1,7 @@
-import { excuteQuery, makeResultMessage, QueryResult } from './common';
 import { Request, Response } from 'express';
+import { excuteQuery, makeResultMessage, QueryResult } from '../common';
 
-import { Post } from '../types/Post';
+import { Post } from './types';
 
 export const getPosts = async (
   req: Request,
