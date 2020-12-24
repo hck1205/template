@@ -5,7 +5,7 @@ import { excuteQuery } from '../controllers/common';
 const passport = require('passport');
 const { Strategy: LocalStrategy } = require('passport-local');
 
-module.exports = () => {
+export default () => {
   passport.use(
     new LocalStrategy(
       {

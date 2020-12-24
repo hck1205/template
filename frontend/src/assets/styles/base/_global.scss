@@ -7,7 +7,16 @@
     url('~assets/fonts/NotoSansKR-Regular.woff2') format('woff2');
 }
 
+html {
+  height: 100%; // CK Template Custom
+}
+
 body {
   font-family: 'Noto Sans KR', 'arial', 'sans-serif';
   font-size: 14px;
+  height: 100%; // CK Template Custom
+}
+
+#root > div {
+  height: 100%; // CK Template Custom
 }

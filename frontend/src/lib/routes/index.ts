@@ -1,9 +1,14 @@
-import { Main } from 'pages';
+import * as P from 'pages';
 
 const routes = [
   {
     path: ['/'],
-    page: Main,
+    page: P.Main,
+    exact: true,
+  },
+  {
+    path: ['/login'],
+    page: P.Login,
     exact: true,
   },
 ];

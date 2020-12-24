@@ -1,24 +1,18 @@
 import express, { Application } from 'express';
 import cookieParser from 'cookie-parser';
-import expressSession from 'express-session';
+
 import cors from 'cors';
 import morgan from 'morgan';
-import dotenv from 'dotenv';
-import passportConfig from './passport';
+
+import { passportConfig, sessionConfig } from './passport';
 
 // Routes
 import { AuthRouter, PostRouter } from './routes';
-
-const passport = require('passport');
-const MySQLStore = require('express-mysql-session')(expressSession);
 
 export class App {
   private app: Application;
 
   constructor(private port?: number | string) {
-    dotenv.config({ path: `${__dirname}/.env` });
-    passportConfig();
-
     this.app = express();
     this.settings();
     this.middlewares();
@@ -46,26 +40,8 @@ export class App {
       })
     );
     this.app.use(cookieParser(process.env.COOKIE_SECRET));
-    this.app.use(
-      expressSession({
-        secret: process.env.COOKIE_SECRET as string,
-        resave: false, // 매번 세션 강제 저장
-        saveUninitialized: true, // 빈 값도 저장
-        cookie: {
-          httpOnly: true, // javscript로 쿠키에 접근하지 못하도록 하는 secure방식
-          secure: false, // https를 쓸 때 true
-        },
-        store: new MySQLStore({
-          host: process.env.DB_HOST,
-          port: parseInt(process.env.DB_PORT as string),
-          user: process.env.DB_USER,
-          password: process.env.DB_PASSWORD,
-          database: process.env.DB_DATABASE,
-        }), // 서버가 재시작되면 메모리에 있는 데이터가 없어지기 때문에 유저들의 로그인이 풀림 그렇기 때문에 store옵셥을 넣어서 레디스같은 memcached db를 이용해 그것을 방지함
-      })
-    );
-    this.app.use(passport.initialize());
-    this.app.use(passport.session());
+    sessionConfig(this.app);
+    passportConfig(this.app);
   }
 
   routes() {

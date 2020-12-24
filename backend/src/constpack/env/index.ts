@@ -1,11 +1,12 @@
 import path from 'path';
 import dotenv from 'dotenv';
 
-const dotenvPath = path.resolve(__dirname, '..', '.env');
-
+const dotenvPath = path.resolve(__dirname, '..', '..', '.env');
 dotenv.config({ path: dotenvPath });
 
-const DBConfig: { [key: string]: any } = {
+export const SERVE_MODE = process.env.NODE_ENV as string;
+
+export const DB_ACESS_INFO: { [key: string]: any } = {
   development: {
     host: '127.0.0.1',
     user: 'root',
@@ -28,5 +29,3 @@ const DBConfig: { [key: string]: any } = {
     database: 'node_mysql_ts',
   },
 };
-
-export default DBConfig;

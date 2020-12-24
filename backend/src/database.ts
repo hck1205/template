@@ -1,11 +1,10 @@
-import { DBConfig } from './config';
 import { createPool } from 'mysql2/promise';
 
-const mode = process.env.NODE_ENV as string;
+import { DB_ACESS_INFO, SERVE_MODE } from './constpack';
 
 export async function connect() {
   const connection = await createPool({
-    ...DBConfig[mode],
+    ...DB_ACESS_INFO[SERVE_MODE],
     connectionLimit: 10,
   });
 
