@@ -9,10 +9,6 @@ class Client {
     this.axios = axios.create({
       baseURL: API_BASE_URL,
       timeout: API_REQUEST_TIMEOUT,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'http://localhost:3000',
-      },
       withCredentials: true,
     });
   }

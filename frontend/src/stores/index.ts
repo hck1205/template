@@ -6,7 +6,7 @@ export type RootStore = {
   userStore: UserStore;
 };
 
-const composeHooks = (...hooks: any[]) => () =>
+const composeHooks = (...hooks: Function[]) => () =>
   hooks.reduce((acc, hook) => ({ ...acc, ...hook() }), {});
 
 export default createContainer(composeHooks(userStore));

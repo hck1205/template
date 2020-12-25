@@ -1,50 +1,86 @@
-import React, { useEffect, useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { TextField, Button } from '@material-ui/core';
+import { axios } from 'lib';
 
+import Store, { RootStore } from 'stores';
 import { FLEX_CENTER, FLEX_COLUMN } from 'lib/styles/common';
 
-// import { axios } from 'lib';
-import axios from 'axios';
+const warningText = '아이디 또는 비밀번호를 다시 입력해주세요.';
 
 function Login() {
+  const history = useHistory();
+  const { userStore } = Store.useContainer() as RootStore;
+
+  const [shouldRender, setShouldRender] = useState(false);
   const [values, setValues] = useState({
-    userid: '',
+    userId: '',
     password: '',
+  });
+  const [invalid, setInvalid] = useState({
+    userId: false,
+    password: false,
   });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { id: key, value } = event.target;
 
     setValues({ ...values, [key]: value });
+    setInvalid({ ...invalid, [key]: false });
   };
 
   const submit = () => {
     axios
-      .post('http://localhost:3000/api/v1/auth/signin', values, {
-        withCredentials: true,
+      .post('auth/signin', values)
+      .then(({ data }) => {
+        if (data) {
+          userStore.setUser(data);
+          history.push('/');
+        }
       })
-      .then((response) => {
-        console.log('response', response);
+      .catch((e) => {
+        console.error(e);
+        setInvalid({
+          userId: true,
+          password: true,
+        });
       });
-    console.log('test', values);
   };
 
-  return (
+  useEffect(() => {
+    axios
+      .get('auth/profile')
+      .then(({ data }) => {
+        if (data) {
+          userStore.setUser(data);
+          history.push('/');
+        }
+      })
+      .catch(() => {
+        setShouldRender(true);
+      });
+  }, []);
+
+  return shouldRender ? (
     <PageWrapper>
       <InputWrapper>
         <TextField
-          id="userid"
+          error={invalid.userId}
+          id="userId"
           label="ID"
           variant="outlined"
           margin="normal"
+          helperText={invalid.userId ? warningText : ''}
           onChange={handleChange}
         />
         <TextField
+          error={invalid.password}
           id="password"
           label="Password"
           variant="outlined"
           margin="normal"
+          helperText={invalid.password ? warningText : ''}
           onChange={handleChange}
         />
 
@@ -70,7 +106,7 @@ function Login() {
         </Button>
       </InputWrapper>
     </PageWrapper>
-  );
+  ) : null;
 }
 
 const PageWrapper = styled.div`

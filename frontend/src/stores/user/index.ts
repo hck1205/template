@@ -1,17 +1,23 @@
-import { useState, Dispatch } from 'react';
+import { useState, Dispatch, SetStateAction } from 'react';
+
+export type User = {
+  userId: string;
+  nickname: string;
+  email: string;
+};
 
 export type UserStore = {
-  userName: string;
-  setUserName: Dispatch<React.SetStateAction<string>>;
+  user: User;
+  setUser: Dispatch<SetStateAction<string>>;
 };
 
 function userStore() {
-  let [userName, setUserName] = useState('');
+  let [user, setUser] = useState('');
 
   return {
     userStore: {
-      userName,
-      setUserName,
+      user,
+      setUser,
     },
   };
 }

@@ -37,16 +37,15 @@ export const signin = async (
 ) => {
   passport.authenticate(
     'local',
-    (err: Error, user: User, info: { reason: string }) => {
+    (err: Error, user: User, info: { reason: string; message: string }) => {
       if (err) {
         console.error(err);
         return next(err);
       }
 
-      console.log('signin');
-
       if (info) {
-        return res.status(401).send(info.reason);
+        console.error('Error', info);
+        return res.status(401).send('invalid account information');
       }
 
       return req.login(user, async (loginErr) => {
@@ -69,6 +68,8 @@ export const signin = async (
   )(req, res, next);
 };
 
-export const profile = async (req: Request, res: Response) => {
-  res.send('profile');
+export const profile = (req: Request, res: Response) => {
+  const user: any = { ...(req.user as User) };
+  delete user.password;
+  return res.json(user);
 };
