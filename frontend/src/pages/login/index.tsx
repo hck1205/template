@@ -1,17 +1,20 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { TextField, Button } from '@material-ui/core';
-import { axios } from 'lib';
 
+import { FLEX_CENTER, FLEX_COLUMN } from 'components';
 import Store, { RootStore } from 'stores';
-import { FLEX_CENTER, FLEX_COLUMN } from 'lib/styles/common';
+import { axios } from 'lib';
 
 const warningText = '아이디 또는 비밀번호를 다시 입력해주세요.';
 
 function Login() {
   const history = useHistory();
+  const location = useLocation();
+
   const { userStore } = Store.useContainer() as RootStore;
+  const { user, setLogin } = userStore;
 
   const [shouldRender, setShouldRender] = useState(false);
   const [values, setValues] = useState({
@@ -35,8 +38,15 @@ function Login() {
       .post('auth/signin', values)
       .then(({ data }) => {
         if (data) {
-          userStore.setUser(data);
-          history.push('/');
+          setLogin(data);
+          if (location instanceof Object) {
+            const prevPath = (location.state as LooseObject).prevPath;
+            if (prevPath) {
+              history.push(prevPath);
+            } else {
+              history.push('/');
+            }
+          }
         }
       })
       .catch((e) => {
@@ -49,18 +59,11 @@ function Login() {
   };
 
   useEffect(() => {
-    axios
-      .get('auth/profile')
-      .then(({ data }) => {
-        if (data) {
-          userStore.setUser(data);
-          history.push('/');
-        }
-      })
-      .catch(() => {
-        setShouldRender(true);
-      });
-  }, []);
+    if (user) {
+      history.push('/');
+    }
+    setShouldRender(true);
+  }, [user]);
 
   return shouldRender ? (
     <PageWrapper>
@@ -92,7 +95,14 @@ function Login() {
         >
           Login
         </Button>
-        <Button variant="outlined" size="large" color="primary">
+        <Button
+          variant="outlined"
+          size="large"
+          color="primary"
+          onClick={() => {
+            history.push('/');
+          }}
+        >
           Kakao
         </Button>
         <Button variant="outlined" size="large" color="primary">

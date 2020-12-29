@@ -20,12 +20,13 @@
       "components/*": ["components/*"],
       "pages/*": ["pages/*"],
       "lib/*": ["lib/*"],
+      "styles/*": ["lib/styles/*"],
       "API/*": ["API/*"],
       "assets/*": ["assets/*"],
       "constpack/*": ["constpack/*"],
       "stores/*": ["stores/*"]
     },
-    "typeRoots": ["types", "node_modules/@types"]
+    "typeRoots": ["types", "../node_modules/@types"]
   },
   "include": ["**/*"],
   "exclude": ["node_modules", "build"]

@@ -2,6 +2,6 @@
 
 export { default as axios } from './axios';
 
-// export {} from './helper';
+export * from './helper';
 
-export { default as routes } from './routes';
+export { RoutesPath, Routes, handleRouter } from './routes';

@@ -17,3 +17,4 @@ export const SERVER_STAGE = process.env.STAGE as Mode;
 // Server URL Info
 export const API_BASE_URL: string = API_URL[SERVER_STAGE];
 export const API_REQUEST_TIMEOUT = 20000;
+export const SESSION_COOKIE_KEY = 'tmpbck';

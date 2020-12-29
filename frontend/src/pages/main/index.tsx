@@ -1,20 +1,14 @@
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
+import { GlobalComponent, Header, Footer, Menu } from 'components';
 
-import Store, { RootStore } from 'stores';
-import { IU } from 'assets/images';
+import Presenter from './presenter';
 
-type Props = {};
-import 'assets/styles';
-
-function Presenter({}: Props) {
-  const history = useHistory();
-
-  const { userStore } = Store.useContainer() as RootStore;
-
-  useEffect(() => {}, []);
-
-  return <img src={IU}></img>;
+function Main() {
+  return (
+    <GlobalComponent header={<Header />} footer={<Footer />} menu={<Menu />}>
+      <Presenter />
+    </GlobalComponent>
+  );
 }
 
-export default Presenter;
+export default Main;

@@ -1,25 +1,49 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { routes } from 'lib';
+import { PrivateRoute } from 'components';
+
+import { RoutesPath, Routes } from 'lib';
 
 import 'assets/styles';
 
 export default function App() {
-  return (
+  // const {userStore} = Store.useContainer() as RootStore;
+  const [appReady, setAppReady] = useState(false);
+
+  // const {loggedIn} = userStore;
+
+  useEffect(() => {
+    setAppReady(true);
+  }, []);
+
+  return appReady ? (
     <Router>
       <Suspense fallback={<div></div>}>
         <Switch>
-          {routes.map(({ path, page, exact }, i) => (
-            <Route
-              exact={exact}
-              path={path}
-              component={page}
-              key={`${path}_${i}`}
-            />
-          ))}
+          {RoutesPath.map(({ path, page, exact, isPrivate }: Routes, i) => {
+            if (isPrivate) {
+              return (
+                <PrivateRoute
+                  exact={exact}
+                  path={path}
+                  component={page}
+                  key={`private_${path}_${i}`}
+                />
+              );
+            }
+
+            return (
+              <Route
+                exact={exact}
+                path={path}
+                component={page}
+                key={`public_${path}_${i}`}
+              />
+            );
+          })}
         </Switch>
       </Suspense>
     </Router>
-  );
+  ) : null;
 }
