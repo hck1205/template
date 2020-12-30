@@ -7,7 +7,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 
-import { axios } from 'lib';
+import { axios, handleRouter } from 'lib';
 import Store, { RootStore } from 'stores';
 
 type Props = {
@@ -17,7 +17,7 @@ type Props = {
 };
 
 function PrivateRoute({ exact, path, component: Componment, ...rest }: Props) {
-  const history = useHistory();
+  const history = handleRouter();
   const location = useLocation();
 
   const { userStore } = Store.useContainer() as RootStore;
@@ -36,8 +36,8 @@ function PrivateRoute({ exact, path, component: Componment, ...rest }: Props) {
         })
         .catch((e) => {
           console.info(e);
-        })
-        .finally(() => {});
+          history.push('/login');
+        });
     } else {
       setShouldRender(true);
     }
