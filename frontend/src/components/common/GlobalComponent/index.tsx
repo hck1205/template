@@ -1,5 +1,7 @@
 import React from 'react';
 
+import styled from '@emotion/styled';
+
 type Props = {
   header?: React.ReactNode;
   children: React.ReactNode;
@@ -9,13 +11,23 @@ type Props = {
 
 function GlobalComponent({ header, children, footer, menu }: Props) {
   return (
-    <>
-      {header}
+    <Wrapper>
       {menu}
-      <div>{children}</div>
-      {footer}
-    </>
+      <ContentWrapper>
+        {header}
+        <div>{children}</div>
+        {footer}
+      </ContentWrapper>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  display: flex;
+`;
+
+const ContentWrapper = styled.div`
+  flex-grow: 1;
+`;
 
 export default GlobalComponent;

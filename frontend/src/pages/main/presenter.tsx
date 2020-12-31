@@ -12,14 +12,14 @@ function Presenter({}: Props) {
   useEffect(() => {}, []);
 
   return (
-    <>
+    <div>
       <img
         src={IU}
         onClick={() => {
           history.push('/test');
         }}
       />
-    </>
+    </div>
   );
 }
 

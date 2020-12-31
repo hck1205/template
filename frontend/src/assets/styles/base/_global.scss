@@ -15,8 +15,9 @@ body {
   font-family: 'Noto Sans KR', 'arial', 'sans-serif';
   font-size: 14px;
   height: 100%; // CK Template Custom
-}
-
-#root > div {
-  height: 100%; // CK Template Custom
+  margin: auto;
+  max-width: 1080px;
+  position: relative;
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
 }
