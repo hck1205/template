@@ -5,6 +5,8 @@ import RootStore from 'stores';
 
 import App from './pages/app';
 
+import 'assets/styles';
+
 ReactDOM.render(
   <RootStore.Provider>
     <App />

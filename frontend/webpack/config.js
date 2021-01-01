@@ -15,7 +15,9 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, '..', 'build'),
-    filename: isDevMode ? 'js/[name].js' : 'js/[name].[contenthash:8].js',
+    filename: isDevMode
+      ? 'js/[name].[fullhash].js'
+      : 'js/[name].[contenthash:8].js',
     chunkFilename: isDevMode
       ? 'js/[name].[fullhash].chunk.js'
       : 'js/[name].[contenthash:8].chunk.js',
@@ -74,9 +76,9 @@ module.exports = {
 
   devServer: isDevMode
     ? {
-        contentBase: path.join(__dirname, '..', 'public'),
+        contentBase: path.join(__dirname, '..', 'build'),
         index: 'index.html',
-        port: 3000,
+        port: 3030,
         host: '0.0.0.0',
         hot: true,
         historyApiFallback: true,

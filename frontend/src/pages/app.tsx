@@ -5,8 +5,6 @@ import { PrivateRoute } from 'components';
 
 import { RoutesPath, Routes } from 'lib';
 
-import 'assets/styles';
-
 export default function App() {
   // const {userStore} = Store.useContainer() as RootStore;
   const [appReady, setAppReady] = useState(false);

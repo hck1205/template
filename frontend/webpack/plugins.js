@@ -17,17 +17,16 @@ module.exports = () => {
     }),
 
     // build css files into styles and chunkfiles with hash naming
-    // new MiniCssExtractPlugin({
-    //   path: path.resolve(__dirname, '..', 'build'),
-    //   filename: 'styles/styles.[contenthash:8].css',
-    //   chunkFilename: 'styles/styles.[contenthash:8].chunk.css',
-    // }),
+    new MiniCssExtractPlugin({
+      filename: 'styles/styles.[contenthash:8].css',
+      chunkFilename: 'styles/styles.[contenthash:8].chunk.css',
+    }),
 
     // Read index.html file and use it as a template for dev-server
     // Produce index.html when webpack build
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.resolve(__dirname, '../public', 'index.html'),
+      template: path.resolve(__dirname, '..', 'public', 'index.html'),
       //   favicon: path.resolve(__dirname, "../public", "favicon.ico")
     }),
 
@@ -47,7 +46,7 @@ module.exports = () => {
   } else {
     // Prod Plugins
     pluginList.push(
-      new CopyPlugin([{ from: 'public/robots.txt', to: 'robots.txt' }])
+      new CopyPlugin([{ from: '../public/robots.txt', to: 'robots.txt' }])
     );
   }
 

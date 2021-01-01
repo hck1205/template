@@ -39,4 +39,10 @@ export const RoutesPath: Routes[] = [
     exact: true,
     isPrivate: true,
   },
+  {
+    path: ['/board/write'],
+    page: P.Write,
+    exact: true,
+    isPrivate: false,
+  },
 ];
