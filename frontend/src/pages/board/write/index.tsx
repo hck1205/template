@@ -1,8 +1,18 @@
 import React from 'react';
-import { Editor } from 'components';
+import { LayoutComponent, SearchBar, Footer, SideNav } from 'components';
+
+import Presenter from './presenter';
 
 function Write() {
-  return <Editor />;
+  return (
+    <LayoutComponent
+      sideNav={<SideNav />}
+      searchBar={<SearchBar />}
+      footer={<Footer />}
+    >
+      <Presenter />
+    </LayoutComponent>
+  );
 }
 
 export default Write;

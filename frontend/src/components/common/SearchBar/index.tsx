@@ -1,4 +1,5 @@
 import React from 'react';
+import Store, { RootStore } from 'stores';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 import {
@@ -18,6 +19,7 @@ import {
   Mail as MailIcon,
   Notifications as NotificationsIcon,
   MoreVert as MoreIcon,
+  Menu as MenuIcon,
 } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,14 +27,19 @@ const useStyles = makeStyles((theme: Theme) =>
     grow: {
       flexGrow: 1,
     },
+    appbar: {
+      boxShadow: 'none',
+    },
     toolbar: {
-      height: '58px',
+      height: '59px',
       [theme.breakpoints.up('xs')]: {
-        minHeight: '58px;',
+        minHeight: '59px;',
       },
+      padding: '0 18px',
     },
     search: {
       position: 'relative',
+
       borderRadius: theme.shape.borderRadius,
       backgroundColor: fade(theme.palette.common.white, 0.15),
       '&:hover': {
@@ -64,6 +71,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
       transition: theme.transitions.create('width'),
       width: '100%',
+      boxShadow: 'none',
       [theme.breakpoints.up('md')]: {
         width: '20ch',
       },
@@ -83,7 +91,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function Header() {
+function Search() {
+  const { commonStore } = Store.useContainer() as RootStore;
+  const { sideNavStatus, setSideNavStatus } = commonStore;
   const classes = useStyles();
 
   const [
@@ -120,6 +130,7 @@ function Header() {
         </IconButton>
         <p>Messages</p>
       </MenuItem>
+
       <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
           <Badge badgeContent={11} color="secondary">
@@ -128,6 +139,7 @@ function Header() {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
+
       <MenuItem>
         <IconButton
           aria-label="account of current user"
@@ -144,8 +156,19 @@ function Header() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.appbar}>
         <Toolbar className={classes.toolbar}>
+          <IconButton
+            edge="start"
+            aria-label="side navigation button"
+            aria-controls={'search-navigation-menu'}
+            aria-haspopup="true"
+            onClick={() => setSideNavStatus(!sideNavStatus)}
+            color="inherit"
+          >
+            <MenuIcon />
+          </IconButton>
+
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -204,4 +227,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Search;

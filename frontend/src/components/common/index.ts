@@ -1,5 +1,5 @@
 export { default as PrivateRoute } from './PrivateRoute';
-export { default as GlobalComponent } from './GlobalComponent';
-export { default as Menu } from './Menu';
-export { default as Header } from './Header';
+export { default as LayoutComponent } from './LayoutComponent';
+export { default as SideNav } from './SideNav';
+export { default as SearchBar } from './SearchBar';
 export { default as Footer } from './Footer';
