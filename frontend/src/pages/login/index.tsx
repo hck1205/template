@@ -5,7 +5,7 @@ import { TextField, Button } from '@material-ui/core';
 
 import { FLEX_CENTER, FLEX_COLUMN } from 'components';
 import Store, { RootStore } from 'stores';
-import { axios } from 'lib';
+import { signin } from 'API';
 
 const warningText = '아이디 또는 비밀번호를 다시 입력해주세요.';
 
@@ -33,20 +33,19 @@ function Login() {
     setInvalid({ ...invalid, [key]: false });
   };
 
+  const goToPrevPath = () => {
+    if (location instanceof Object) {
+      const prevPath = (location.state as LooseObject).prevPath;
+      history.push(prevPath ? prevPath : '/');
+    }
+  };
+
   const submit = () => {
-    axios
-      .post('auth/signin', values)
-      .then(({ data }) => {
+    signin(values)
+      .then((data) => {
         if (data) {
           setLogin(data);
-          if (location instanceof Object) {
-            const prevPath = (location.state as LooseObject).prevPath;
-            if (prevPath) {
-              history.push(prevPath);
-            } else {
-              history.push('/');
-            }
-          }
+          goToPrevPath();
         }
       })
       .catch((e) => {

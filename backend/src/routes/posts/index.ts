@@ -5,9 +5,12 @@ import {
   getPost,
   deletePost,
   updatePost,
-} from '../../controllers/post';
+} from '../../controllers/posts';
+import { isLoggedin } from '../../passport/middleware';
 
 const router = Router();
+
+router.route('/register').post(isLoggedin, createPost);
 
 router.route('/').get(getPosts).post(createPost);
 

@@ -7,7 +7,8 @@ import {
   useLocation,
 } from 'react-router-dom';
 
-import { axios, handleRouter } from 'lib';
+import { handleRouter } from 'lib';
+import { getAuthProfile } from 'API';
 import Store, { RootStore } from 'stores';
 
 type Props = {
@@ -25,14 +26,10 @@ function PrivateRoute({ exact, path, component: Componment, ...rest }: Props) {
   const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
-    console.log('Private Route');
     if (!loggedIn) {
-      axios
-        .get('auth/profile')
+      getAuthProfile()
         .then(({ data }) => {
-          if (data) {
-            setLogin(data);
-          }
+          data && setLogin(data);
         })
         .catch((e) => {
           console.info(e);

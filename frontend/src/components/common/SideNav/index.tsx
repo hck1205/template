@@ -14,6 +14,8 @@ import {
 
 import { MoveToInbox as InboxIcon, Mail as MailIcon } from '@material-ui/icons';
 
+import Menu from './menu';
+
 const useStyles = makeStyles({
   list: {
     width: 250,
@@ -45,33 +47,8 @@ function SideNav() {
         onClose={toggleDrawer}
         onOpen={toggleDrawer}
       >
-        <div
-          className={classes.list}
-          role="presentation"
-          onClick={toggleDrawer}
-          onKeyDown={toggleDrawer}
-        >
-          <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
+        <div className={classes.list} role="presentation">
+          <Menu />
         </div>
       </SwipeableDrawer>
     </div>

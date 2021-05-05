@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
+import styled from '@emotion/styled';
+import { Button } from '@material-ui/core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { Create as CreateIcon, Close as CloseIcon } from '@material-ui/icons';
+
+import './style.scss';
 
 const modules = {
   toolbar: {
@@ -38,10 +44,58 @@ const formats = [
   'video',
   'align',
 ];
-function Editor() {
-  const [text, setText] = useState('');
 
-  return <ReactQuill theme={'snow'} modules={modules} formats={formats} />;
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    button: {
+      margin: theme.spacing(1),
+    },
+  })
+);
+
+type Props = {
+  onSubmit: (texts: string) => void;
+};
+
+function Editor({ onSubmit }: Props) {
+  const classes = useStyles();
+
+  const [contents, setContents] = useState('');
+
+  return (
+    <div>
+      <ReactQuill
+        theme={'snow'}
+        modules={modules}
+        formats={formats}
+        value={contents}
+        onChange={setContents}
+      />
+      <ButtonWrapper>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          startIcon={<CreateIcon />}
+          onClick={() => onSubmit(contents)}
+        >
+          SEND
+        </Button>
+        <Button
+          variant="outlined"
+          className={classes.button}
+          startIcon={<CloseIcon />}
+        >
+          CANCEL
+        </Button>
+      </ButtonWrapper>
+    </div>
+  );
 }
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
 
 export default Editor;

@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react';
 import { Editor } from 'components';
-
-import { handleRouter } from 'lib';
-
-import './style.scss';
+import { registerPost } from 'API';
 
 type Props = {};
 
 function Presenter({}: Props) {
   useEffect(() => {}, []);
 
+  const onRegister = (contents: string) => {
+    registerPost({ type: 'free', contents }).then(() => {});
+  };
+
   return (
     <>
-      <Editor />
+      <Editor onSubmit={onRegister} />
     </>
   );
 }
