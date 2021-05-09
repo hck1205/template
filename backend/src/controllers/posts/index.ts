@@ -21,14 +21,13 @@ export const getPost = async (
 };
 
 export const createPost = async (req: Request, res: Response) => {
-  console.log('req123', req.user);
-  const newPost: Post = req.body;
-  console.log('newPost', newPost);
-  const test = {
-    title: 'test',
-    contents: newPost.contents,
+  const { title, contents }: Post = req.body;
+  const newPost = {
+    title: title,
+    contents: contents,
   };
-  const result = await excuteQuery('INSERT INTO posts SET ?', [test]);
+  console.log('newPost', newPost);
+  const result = await excuteQuery('INSERT INTO posts SET ?', [newPost]);
   const message = makeResultMessage('Post Create', result as QueryResult);
   return res.json(message);
 };

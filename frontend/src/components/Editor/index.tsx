@@ -63,7 +63,7 @@ function Editor({ onSubmit }: Props) {
   const [contents, setContents] = useState('');
 
   return (
-    <div>
+    <div className="editor-wrapper">
       <ReactQuill
         theme={'snow'}
         modules={modules}
