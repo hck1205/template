@@ -7,20 +7,23 @@ type Props = {
   searchBar?: React.ReactNode;
   children: React.ReactNode;
   footer?: React.ReactNode;
-  sideNav?: React.ReactNode;
+  slideSideNav?: React.ReactNode;
+  sideMenu?: React.ReactNode;
 };
 
 function LayoutComponent({
   header,
   children,
   footer,
-  sideNav,
+  slideSideNav,
   searchBar,
+  sideMenu,
 }: Props) {
   return (
     <PageWrapper>
       <HeaderWrapper>
-        {sideNav}
+        {slideSideNav}
+        {sideMenu}
         <BodyWrapper>
           {searchBar}
           <ContentWrapper>{children}</ContentWrapper>
@@ -48,6 +51,7 @@ const BodyWrapper = styled.div`
 
 const ContentWrapper = styled.div`
   padding: 5px;
+  background-color: #effaf6;
 `;
 
 const FooterWrapper = styled.div`

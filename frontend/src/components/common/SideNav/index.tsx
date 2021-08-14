@@ -1,58 +1,37 @@
-import React, { useState, KeyboardEvent, MouseEvent } from 'react';
-import Store, { RootStore } from 'stores';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
+import { Menu } from 'components';
+import { FLEX_COLUMN } from 'components/styles';
+import styled from '@emotion/styled';
 
-import {
-  SwipeableDrawer,
-  Button,
-  List,
-  Divider,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from '@material-ui/core';
-
-import { MoveToInbox as InboxIcon, Mail as MailIcon } from '@material-ui/icons';
-
-import Menu from './menu';
-
-const useStyles = makeStyles({
-  list: {
-    width: 250,
-  },
-});
-
-function SideNav() {
-  const classes = useStyles();
-  const { commonStore } = Store.useContainer() as RootStore;
-  const { sideNavStatus, setSideNavStatus } = commonStore;
-
-  const toggleDrawer = (event: KeyboardEvent | MouseEvent) => {
-    if (
-      event &&
-      event.type === 'keydown' &&
-      ((event as KeyboardEvent).key === 'Tab' ||
-        (event as KeyboardEvent).key === 'Shift')
-    ) {
-      return;
-    }
-    setSideNavStatus(!sideNavStatus);
-  };
-
+function SideMenu() {
   return (
-    <div>
-      <SwipeableDrawer
-        anchor={'left'}
-        open={sideNavStatus}
-        onClose={toggleDrawer}
-        onOpen={toggleDrawer}
-      >
-        <div className={classes.list} role="presentation">
+    <SideNavWrapper>
+      <Content>
+        <Logo>SOME LOGO</Logo>
+        <MenuWrapper>
           <Menu />
-        </div>
-      </SwipeableDrawer>
-    </div>
+        </MenuWrapper>
+      </Content>
+    </SideNavWrapper>
   );
 }
 
-export default SideNav;
+export default SideMenu;
+
+const SideNavWrapper = styled.div`
+  width: 200px;
+`;
+
+const Content = styled.div`
+  ${FLEX_COLUMN}
+`;
+
+const Logo = styled.div`
+  height: 58px;
+  width: 100%;
+  background-color: #282c37;
+`;
+
+const MenuWrapper = styled.div`
+  width: 100%;
+`;

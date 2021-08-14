@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { TextField, Button } from '@material-ui/core';
 
-import { FLEX_CENTER, FLEX_COLUMN } from 'components';
+import { FLEX_CENTER, FLEX_COLUMN } from 'components/styles';
 import Store, { RootStore } from 'stores';
 import { signin } from 'API';
 
@@ -58,10 +58,7 @@ function Login() {
   };
 
   useEffect(() => {
-    if (user) {
-      history.push('/');
-    }
-    setShouldRender(true);
+    user ? history.push('/') : setShouldRender(true);
   }, [user]);
 
   return shouldRender ? (

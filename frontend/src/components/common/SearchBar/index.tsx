@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     appbar: {
       boxShadow: 'none',
+      backgroundColor: '#1976d2',
     },
     toolbar: {
       height: '59px',
@@ -96,10 +97,8 @@ function Search() {
   const { sideNavStatus, setSideNavStatus } = commonStore;
   const classes = useStyles();
 
-  const [
-    mobileMoreAnchorEl,
-    setMobileMoreAnchorEl,
-  ] = React.useState<null | HTMLElement>(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
+    React.useState<null | HTMLElement>(null);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 

@@ -17,6 +17,7 @@
     "sourceMap": true,
     "baseUrl": "src",
     "paths": {
+      "commonStyles/*": ["components/styles/*"],
       "components/*": ["components/*"],
       "pages/*": ["pages/*"],
       "lib/*": ["lib/*"],

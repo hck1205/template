@@ -1,12 +1,12 @@
 import React from 'react';
-import { LayoutComponent, SearchBar, Footer, SideNav } from 'components';
+import { LayoutComponent, SearchBar, Footer, SlideSideNav } from 'components';
 
 import Presenter from './presenter';
 
 function Write() {
   return (
     <LayoutComponent
-      sideNav={<SideNav />}
+      slideSideNav={<SlideSideNav />}
       searchBar={<SearchBar />}
       footer={<Footer />}
     >

@@ -5,12 +5,11 @@ import {
   Footer,
   SlideSideNav,
   SideNav,
-  Menu,
 } from 'components';
 
 import Presenter from './presenter';
 
-function Main() {
+function BoardList() {
   return (
     <LayoutComponent
       sideMenu={<SideNav />}
@@ -23,4 +22,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default BoardList;

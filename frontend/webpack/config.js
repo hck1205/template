@@ -42,6 +42,7 @@ module.exports = {
     alias: {
       '~': path.resolve(__dirname, '..', 'node_modules'),
       components: path.resolve(__dirname, '..', 'src', 'components'),
+      commonStyles: path.resolve(__dirname, '..', 'src', 'components/styles'),
       pages: path.resolve(__dirname, '..', 'src', 'pages'),
       stores: path.resolve(__dirname, '..', 'src', 'stores'),
       API: path.resolve(__dirname, '..', 'src', 'API'),

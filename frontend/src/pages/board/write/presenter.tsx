@@ -13,10 +13,7 @@ function Presenter({}: Props) {
   useEffect(() => {}, []);
 
   const onRegister = (contents: string) => {
-    console.log('onRegister');
-    if (title.trim()) {
-      console.log('onRegister111');
-      console.log('title.trim()', title.trim());
+    if (title.trim() && contents.trim()) {
       registerPost({ type: 'free', contents, title }).then(() => {});
     }
   };

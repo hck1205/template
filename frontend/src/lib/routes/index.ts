@@ -1,4 +1,5 @@
 import * as P from 'pages';
+
 import { LazyExoticComponent, FunctionComponent } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -40,8 +41,14 @@ export const RoutesPath: Routes[] = [
     isPrivate: true,
   },
   {
+    path: ['/board/list'],
+    page: P.BoardList,
+    exact: true,
+    isPrivate: false,
+  },
+  {
     path: ['/board/write'],
-    page: P.Write,
+    page: P.BoardWrite,
     exact: true,
     isPrivate: false,
   },
