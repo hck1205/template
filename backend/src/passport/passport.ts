@@ -12,7 +12,7 @@ export default (app: Application) => {
 
   passport.serializeUser(({ id }: User, done: Function) => {
     // [{ id: 3, cookie: '#$%!@#SDRWERWER@#$WER' }]
-    // 1. id는 서버쪽에서 Kepp
+    // 1. id는 서버쪽에서 Keep
     // 2. cookie는 클라이언트가 가지고 서버에 요청을 함
     // 3. 서버는 쿠키와 일치하는 아이디를 찾아 deserialize해서 정보를 찾아줌
     return done(null, id);

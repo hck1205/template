@@ -9,11 +9,10 @@ const passport = require('passport');
 
 export const signup = async (req: Request, res: Response) => {
   const user: User = req.body;
-  const [
-    { cnt },
-  ] = (await excuteQuery('SELECT COUNT(*) as cnt FROM user WHERE userId = ?', [
-    user.userId,
-  ])) as RowDataPacket[];
+  const [{ cnt }] = (await excuteQuery(
+    'SELECT COUNT(*) as cnt FROM user WHERE user_id = ?',
+    [user.user_id]
+  )) as RowDataPacket[];
 
   if (cnt) {
     res.send('User Already Exists');
@@ -52,10 +51,8 @@ export const signin = async (
         try {
           if (loginErr) return next(loginErr);
 
-          const [
-            fullUser,
-          ] = (await excuteQuery(
-            'SELECT userId, nickname, email FROM user WHERE id = ?',
+          const [fullUser] = (await excuteQuery(
+            'SELECT user_id, nickname, email FROM user WHERE id = ?',
             [user.id]
           )) as RowDataPacket[];
 

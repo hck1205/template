@@ -9,16 +9,15 @@ export default () => {
   passport.use(
     new LocalStrategy(
       {
-        usernameField: 'userId',
+        usernameField: 'user_id',
         passwordField: 'password',
       },
-      async (userId: string, password: string, done: Function) => {
+      async (user_id: string, password: string, done: Function) => {
         try {
-          const [
-            user,
-          ] = (await excuteQuery('SELECT * FROM user WHERE userId = ?', [
-            userId,
-          ])) as RowDataPacket[];
+          const [user] = (await excuteQuery(
+            'SELECT * FROM user WHERE user_id = ?',
+            [user_id]
+          )) as RowDataPacket[];
 
           if (!user) {
             return done(null, false, { reason: '존재하지 않는 사용자입니다!' });
